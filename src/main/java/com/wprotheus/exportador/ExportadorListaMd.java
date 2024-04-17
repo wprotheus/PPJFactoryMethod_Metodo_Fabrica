@@ -1,19 +1,11 @@
 package com.wprotheus.exportador;
 
-import com.wprotheus.model.Produto;
-
+import java.util.List;
 import java.util.function.Function;
 
-class ExportadorListaProdutoMd extends AbstractExportadorListaProduto {
-    @Override
-    public Coluna newColuna(Function<Produto, Object> funcaoValorColuna, String titulo) {
-        return new ColunaMd(funcaoValorColuna, titulo);
-    }
-
-    @Override
-    protected void setSeparadorCol(String separadorCol) {
-        super.setSeparadorCol(separadorCol);
-        this.setSeparadorCol("|");
+public class ExportadorListaMd<T> extends AbstractExportadorLista<T> {
+    public ExportadorListaMd(List<T> lista) {
+        super(lista);
     }
 
     @Override
@@ -26,13 +18,18 @@ class ExportadorListaProdutoMd extends AbstractExportadorListaProduto {
         return "";
     }
 
-
+    @Override
     public String abrirLinha() {
         return "";
     }
 
     @Override
     public String fecharLinha() {
+        return "\n";
+    }
+
+    @Override
+    public String abrirLinhaTitulos() {
         return "";
     }
 
@@ -43,7 +40,12 @@ class ExportadorListaProdutoMd extends AbstractExportadorListaProduto {
             sb.append("| ").append(t).append(" ");
         sb.append("\n");
         for (String t : TITULOS_COLUNAS)
-            sb.append("--------").append(" ");
+            sb.append("|--------").append(" ");
         return sb.toString() + "\n";
+    }
+
+    @Override
+    public void addNewColuna(Function<T, String> funcaoValorColuna, String titulo) {
+        addColuna(new ColunaMd<T>(funcaoValorColuna, titulo));
     }
 }

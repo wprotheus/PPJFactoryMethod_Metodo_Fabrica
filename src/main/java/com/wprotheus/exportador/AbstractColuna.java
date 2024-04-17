@@ -1,27 +1,28 @@
 package com.wprotheus.exportador;
 
-import com.wprotheus.model.Produto;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.function.Function;
 
-@Data
-public abstract class AbstractColuna implements Coluna {
-    private final Function<Produto, Object> obtemValorColuna;
+@Getter
+@Setter
+public abstract class AbstractColuna<T> implements Coluna<T> {
+    private Function<T, String> funcaoValorColuna;
     private String titulo;
 
-    public AbstractColuna(Function<Produto, Object> obtemValorColuna, String titulo) {
-        this.obtemValorColuna = obtemValorColuna;
+    public AbstractColuna(Function<T, String> funcaoValorColuna, String titulo) {
+        this.funcaoValorColuna = funcaoValorColuna;
         this.titulo = titulo;
     }
 
     @Override
     public String exportarCabecalho() {
-        return getTitulo();
+        return abrir() + titulo + fechar();
     }
 
     @Override
-    public String exportarDado(Produto produto) {
-        return obtemValorColuna.apply(produto).toString();
+    public String exportarDado(T produto) {
+        return abrir() + funcaoValorColuna.apply(produto) + fechar();
     }
 }

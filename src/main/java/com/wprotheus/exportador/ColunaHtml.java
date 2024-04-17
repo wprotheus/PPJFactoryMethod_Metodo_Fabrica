@@ -1,12 +1,10 @@
 package com.wprotheus.exportador;
 
-import com.wprotheus.model.Produto;
-
 import java.util.function.Function;
 
-class ColunaHtml extends AbstractColuna{
-    public ColunaHtml(Function<Produto, Object> obtemValorColuna, String titulo) {
-        super(obtemValorColuna, titulo);
+public class ColunaHtml<T> extends AbstractColuna<T> {
+    public ColunaHtml(Function<T, String> funcaoValorColuna, String titulo) {
+        super(funcaoValorColuna, titulo);
     }
 
     @Override
@@ -16,6 +14,6 @@ class ColunaHtml extends AbstractColuna{
 
     @Override
     public String fechar() {
-        return  "</td>";
+        return "</td>";
     }
 }

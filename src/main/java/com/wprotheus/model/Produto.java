@@ -1,18 +1,19 @@
 package com.wprotheus.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.io.Serializable;
-
-@Data
-public class Produto implements Serializable {
-    private int id;
+@Getter
+@Setter
+public class Produto {
+    private String id;
     private String nomeProduto;
     private String marcaProduto;
     private String valorProduto;
-    private int estoqueProtduto;
+    private String estoqueProtduto;
 
-    public Produto(int id, String nomeProduto, String marcaProduto, String valorProduto, int estoqueProtduto) {
+    public Produto(String id, String nomeProduto, String marcaProduto,
+                   String valorProduto, String estoqueProtduto) {
         this.id = id;
         this.nomeProduto = nomeProduto;
         this.marcaProduto = marcaProduto;

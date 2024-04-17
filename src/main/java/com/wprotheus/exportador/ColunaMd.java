@@ -1,12 +1,10 @@
 package com.wprotheus.exportador;
 
-import com.wprotheus.model.Produto;
-
 import java.util.function.Function;
 
-class ColunaMd extends AbstractColuna{
-    public ColunaMd(Function<Produto, Object> obtemValorColuna, String titulo) {
-        super(obtemValorColuna, titulo);
+public class ColunaMd<T> extends AbstractColuna<T> {
+    public ColunaMd(Function<T, String> funcaoValorColuna, String titulo) {
+        super(funcaoValorColuna, titulo);
     }
 
     @Override
